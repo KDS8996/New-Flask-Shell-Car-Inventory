@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero-section bg-dark text-light text-center">
+    <div class="container py-5">
+        <h1 class="header-text">Welcome to Coding Cars {{ current_user.email }}!</h1>
+    </div>
+</section>
+
+<div class="container my-5">
+    <h3>Your Profile Details</h3>
+    <ul class="list-group">
+        <li class="list-group-item">Email: {{ current_user.email }}</li>
+        <li class="list-group-item">Token: {{ current_user.token }}</li>
+        <!-- Additional information specific to car inventory can be added here -->
+    </ul>
+</div>
+
+<div class="container text-center mt-5">
+    <h3>Your Listed Vehicles</h3>
+    <!-- Example of how you might display user-related car inventory -->
+    <div class="row">
+        {% for car in current_user.cars %}
+        <div class="col-md-4 my-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ car.make }} {{ car.model }}</h5>
+                    <p class="card-text">Year: {{ car.year }}</p>
+                    <p class="card-text">Color: {{ car.color }}</p>
+                    <p class="card-text">Price: ${{ car.price }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

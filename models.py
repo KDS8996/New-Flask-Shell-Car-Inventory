@@ -1,4 +1,3 @@
-# imports
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import uuid
@@ -9,7 +8,7 @@ from flask_login import LoginManager
 from flask_marshmallow import Marshmallow
 import secrets
 
-# set variables for class instantiation
+# Assuming these are initialized somewhere in your application
 login_manager = LoginManager()
 ma = Marshmallow()
 db = SQLAlchemy()
@@ -34,11 +33,8 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def __repr__(self):
-        return f'User {self.email} has been added to the database'
-
 class Car(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(36), primary_key=True, default=lambda: uuid.uuid4().hex)  # Change here
     make = db.Column(db.String(100), nullable=False)
     model = db.Column(db.String(100), nullable=False)
     year = db.Column(db.Integer, nullable=False)
